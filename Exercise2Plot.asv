@@ -1,0 +1,4 @@
+clc;
+
+load('travel.mat');
+plot(ans(1, :), ans(2, :) - (ans(2,200) + 18 * ans(2, :) ./ ans(2, :));

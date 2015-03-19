@@ -1,0 +1,18 @@
+%% Exercise 3: LQ controller
+
+hints_problem2;
+
+
+Q = diag([1 0 0 0]);
+R = 1;
+
+
+
+[K,S,e] = dlqr(A,B,Q,R);
+
+x_star.time = t
+x_star.signals.values = [x1 x2 x3 x4];
+x_star.signals.dimensions  
+
+
+

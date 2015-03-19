@@ -11,19 +11,14 @@
 % *                                                      *
 % ********************************************************
 
-init;
+initF;
 delta_t	  = 0.25;	                    % sampling time
-h = delta_t;
 sek_forst = 5;
 
 % System model. x=[lambda r p p_dot]'
 
-A1 = [1 h 0 0; 0 1 -h*K_2 0; 0 0 1 h; 0 0 -h*K_1*K_pp (1-h*K_1*K_pd)];
-B1 = [0; 0; 0; h*K_1*K_pp];
-
-A = A1;
-B = B1;
-
+A1 = [];
+B1 = [];
 
 % Number of states and inputs
 
@@ -32,15 +27,15 @@ mu = size(B1,2);                        % Number of inputs(number of columns in 
 
 % Initial values
 
-x1_0 = pi;                              % Lambda
-x2_0 = 0;                               % r
-x3_0 = 0;                               % p
-x4_0 = 0;                               % p_dot
+x1_0 = ;                              % Lambda
+x2_0 = ;                               % r
+x3_0 = ;                               % p
+x4_0 = ;                               % p_dot
 x0   = [x1_0 x2_0 x3_0 x4_0]';          % Initial values
 
 % Time horizon and initialization
 
-N  = 100;                                % Time horizon for states
+N  = 60;                                % Time horizon for states
 M  = N;                                 % Time horizon for inputs
 z  = zeros(N*mx+M*mu,1);                % Initialize z for the whole horizon
 z0 = z;                                 % Initial value for optimization
@@ -57,46 +52,30 @@ xu(3)   = uu;                           % Upper bound on state x3
 
 % Generate constraints on measurements and inputs
 
-vlb       = [repmat(xl,N,1);repmat(ul,M,1)] 
-vub       = [repmat(xu,N,1); repmat(uu,M,1)];
+[vlb,vub]       = ;
 vlb(N*mx+M*mu)  = 0;                    % We want the last input to be zero
 vub(N*mx+M*mu)  = 0;                    % We want the last input to be zero
 
 % Generate the matrix Q and the vector c (objecitve function weights in the QP problem) 
 
 Q1 = zeros(mx,mx);
-Q1(1,1) = 1;                             % Weight on state x1
-Q1(2,2) = 0;                            % Weight on state x2
-Q1(3,3) = 0;                             % Weight on state x3
-Q1(4,4) = 0;                            % Weight on state x4
-P1 = 1;                                 % Weight on input
+Q1(1,1) = ;                             % Weight on state x1
+%Q1(2,2) = ;                            % Weight on state x2
+Q1(3,3) = ;                             % Weight on state x3
+%Q1(4,4) = ;                            % Weight on state x4
+P1 = 0;                                 % Weight on input
 Q = 2*genq2(Q1,P1,N,M,mu);              % Generate Q
 c = zeros(N*mx+M*mu,1);                 % Generate c
 
 % Generate system matrixes for linear model
 
-Venstre = -A;
-for i = 1:(N-2)
-    Venstre = blkdiag(Venstre, -A);
-end
-Venstre = [zeros(4,4*N-4); Venstre]; % sleng på øverste linje
-Venstre = [Venstre zeros(4*N, 4)]; % sleng på høyre kolonne
-Venstre = Venstre + eye(4*N);
-
-Hoyre = -B;
-for i = 1:(N-1)
-    Hoyre = blkdiag(Hoyre, -B);
-end
-
-Aeq = [ Venstre Hoyre];
-
-
-beq = [A*x0; zeros(4*N-4,1)];  	        % Generate b
+Aeq = ;           % Generate A
+beq = ;        	        % Generate b
 beq(1:mx) = A1*x0; 	        	        % Initial value
 
 % Solve Qp problem with linear model
 tic
-[z,lambda] = quadprog(Q,c,[],[],Aeq,beq,vlb,vub);
+[z,lambda] = ;
 t1=toc;
 
 % Calculate objective value
@@ -131,7 +110,6 @@ x4  = [Nuller; x4; Nuller];
 
 % figure
 t = 0:delta_t:delta_t*(length(u)-1);                % real time
-t = t';
 
 figure(2)
 subplot(511)
