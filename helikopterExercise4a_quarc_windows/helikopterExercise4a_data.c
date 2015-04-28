@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopterExercise4a.mdl".
  *
- * Model version              : 1.63
+ * Model version              : 1.64
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Mar 19 12:44:04 2015
+ * C source code generated on : Tue Apr 28 12:54:45 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -55,14 +55,14 @@ Parameters_helikopterExercise4a helikopterExercise4a_P = {
   50.0,                                /* Computed Parameter: VandringLavpass_C
                                         * Referenced by: '<S2>/Vandring Lavpass'
                                         */
+  -0.08785,                            /* Expression: KalibPitch
+                                        * Referenced by: '<S2>/Kalibrer-Pitch'
+                                        */
   0.0925,                              /* Expression: KalibElevasjon
                                         * Referenced by: '<S2>/Kalibrer-Elev'
                                         */
   -30.0,                               /* Expression: -30
                                         * Referenced by: '<Root>/Constant'
-                                        */
-  -0.08785,                            /* Expression: KalibPitch
-                                        * Referenced by: '<S2>/Kalibrer-Pitch'
                                         */
   0.0,                                 /* Expression: 0
                                         * Referenced by: '<S1>/Integrator'

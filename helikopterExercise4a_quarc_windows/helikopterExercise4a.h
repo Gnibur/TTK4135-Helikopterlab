@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopterExercise4a.mdl".
  *
- * Model version              : 1.63
+ * Model version              : 1.64
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Mar 19 12:44:04 2015
+ * C source code generated on : Tue Apr 28 12:54:45 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -784,9 +784,9 @@
 /* Block signals (auto storage) */
 typedef struct {
   real_T VandringLavpass;              /* '<S2>/Vandring Lavpass' */
+  real_T KalibrerPitch;                /* '<S2>/Kalibrer-Pitch' */
   real_T KalibrerElev;                 /* '<S2>/Kalibrer-Elev' */
   real_T Add;                          /* '<Root>/Add' */
-  real_T KalibrerPitch;                /* '<S2>/Kalibrer-Pitch' */
   real_T KalibrerVandring;             /* '<S2>/Kalibrer -Vandring' */
   real_T K_ei;                         /* '<S1>/K_ei' */
   real_T SatB;                         /* '<S2>/Sat B' */
@@ -806,6 +806,14 @@ typedef struct {
   } ToFile_PWORK;                      /* '<Root>/To File' */
 
   void *HILReadEncoder_PWORK;          /* '<S2>/HIL Read Encoder' */
+  struct {
+    void *FilePtr;
+  } ToFile1_PWORK;                     /* '<Root>/To File1' */
+
+  struct {
+    void *FilePtr;
+  } ToFile2_PWORK;                     /* '<Root>/To File2' */
+
   struct {
     void *LoggedData;
   } ToWorkspace_PWORK;                 /* '<Root>/To Workspace' */
@@ -862,6 +870,16 @@ typedef struct {
     int_T Count;
     int_T Decimation;
   } ToFile_IWORK;                      /* '<Root>/To File' */
+
+  struct {
+    int_T Count;
+    int_T Decimation;
+  } ToFile1_IWORK;                     /* '<Root>/To File1' */
+
+  struct {
+    int_T Count;
+    int_T Decimation;
+  } ToFile2_IWORK;                     /* '<Root>/To File2' */
 
   struct {
     int_T PrevIndex;
@@ -957,14 +975,14 @@ struct Parameters_helikopterExercise4a_ {
   real_T VandringLavpass_C;            /* Computed Parameter: VandringLavpass_C
                                         * Referenced by: '<S2>/Vandring Lavpass'
                                         */
+  real_T KalibrerPitch_Gain;           /* Expression: KalibPitch
+                                        * Referenced by: '<S2>/Kalibrer-Pitch'
+                                        */
   real_T KalibrerElev_Gain;            /* Expression: KalibElevasjon
                                         * Referenced by: '<S2>/Kalibrer-Elev'
                                         */
   real_T Constant_Value;               /* Expression: -30
                                         * Referenced by: '<Root>/Constant'
-                                        */
-  real_T KalibrerPitch_Gain;           /* Expression: KalibPitch
-                                        * Referenced by: '<S2>/Kalibrer-Pitch'
                                         */
   real_T Integrator_IC;                /* Expression: 0
                                         * Referenced by: '<S1>/Integrator'

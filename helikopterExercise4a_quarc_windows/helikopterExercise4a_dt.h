@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopterExercise4a.mdl".
  *
- * Model version              : 1.63
+ * Model version              : 1.64
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Mar 19 12:44:04 2015
+ * C source code generated on : Tue Apr 28 12:54:45 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -62,14 +62,14 @@ static DataTypeTransition rtBTransitions[] = {
   { (char_T *)(&helikopterExercise4a_DWork.HILInitialize_AIMinimums[0]), 0, 0,
     46 },
 
-  { (char_T *)(&helikopterExercise4a_DWork.ToFile_PWORK.FilePtr), 11, 0, 14 },
+  { (char_T *)(&helikopterExercise4a_DWork.ToFile_PWORK.FilePtr), 11, 0, 16 },
 
   { (char_T *)(&helikopterExercise4a_DWork.HILInitialize_ClockModes[0]), 6, 0, 9
   },
 
   { (char_T *)(&helikopterExercise4a_DWork.HILInitialize_Card), 14, 0, 1 },
 
-  { (char_T *)(&helikopterExercise4a_DWork.ToFile_IWORK.Count), 10, 0, 3 }
+  { (char_T *)(&helikopterExercise4a_DWork.ToFile_IWORK.Count), 10, 0, 5 }
 };
 
 /* data type transition table for block I/O structure */

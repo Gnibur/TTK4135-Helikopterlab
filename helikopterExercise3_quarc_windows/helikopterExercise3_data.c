@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopterExercise3.mdl".
  *
- * Model version              : 1.64
+ * Model version              : 1.80
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Fri Mar 13 12:17:06 2015
+ * C source code generated on : Tue Apr 28 12:33:40 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -55,14 +55,14 @@ Parameters_helikopterExercise3 helikopterExercise3_P = {
   50.0,                                /* Computed Parameter: VandringLavpass_C
                                         * Referenced by: '<S2>/Vandring Lavpass'
                                         */
-  0.105,                               /* Expression: KalibElevasjon
+  -0.08785,                            /* Expression: KalibPitch
+                                        * Referenced by: '<S2>/Kalibrer-Pitch'
+                                        */
+  0.0925,                              /* Expression: KalibElevasjon
                                         * Referenced by: '<S2>/Kalibrer-Elev'
                                         */
   -30.0,                               /* Expression: -30
                                         * Referenced by: '<Root>/Constant'
-                                        */
-  0.0879,                              /* Expression: KalibPitch
-                                        * Referenced by: '<S2>/Kalibrer-Pitch'
                                         */
   0.0,                                 /* Expression: 0
                                         * Referenced by: '<S1>/Integrator'
@@ -73,7 +73,7 @@ Parameters_helikopterExercise3 helikopterExercise3_P = {
   0.0,                                 /* Expression: -inf
                                         * Referenced by: '<S1>/Integrator'
                                         */
-  -0.18,                               /* Expression: KalibVandring
+  -0.043,                              /* Expression: KalibVandring
                                         * Referenced by: '<S2>/Kalibrer -Vandring'
                                         */
   -20.0,                               /* Computed Parameter: VandringDeriv_A
@@ -119,7 +119,7 @@ Parameters_helikopterExercise3 helikopterExercise3_P = {
   0.0,                                 /* Expression: 0*pi/180
                                         * Referenced by: '<Root>/elevation'
                                         */
-  2.3,                                 /* Expression: K_ei
+  4.3,                                 /* Expression: K_ei
                                         * Referenced by: '<S1>/K_ei'
                                         */
   7.0,                                 /* Expression: K_ep
@@ -135,21 +135,21 @@ Parameters_helikopterExercise3 helikopterExercise3_P = {
   /*  Expression: K
    * Referenced by: '<S3>/Gain'
    */
-  { -1.6616343124772828E+000, -4.1924923959278422E+000, -1.6431797786087354E-001,
-    8.5854636742619686E-002 },
+  { -4.6397095751475342E-001, -1.2181690974377981E+000, -4.7342673938786872E-001,
+    4.4609390179030053E-002 },
   8.7266462599716477E-001,             /* Expression: 50*pi/180
                                         * Referenced by: '<S4>/Saturation'
                                         */
   -8.7266462599716477E-001,            /* Expression: -50*pi/180
                                         * Referenced by: '<S4>/Saturation'
                                         */
-  8.8197842247812428E+000,             /* Expression: 0.3*K_pp
+  6.9782992945047067E+000,             /* Expression: 0.3*K_pp
                                         * Referenced by: '<S4>/K_pp'
                                         */
-  4.6196512844036697E+000,             /* Expression: K_pd
+  2.7413348623853211E+000,             /* Expression: K_pd
                                         * Referenced by: '<S4>/K_pd'
                                         */
-  0.707,                               /* Expression: V_b_eq
+  0.6,                                 /* Expression: V_b_eq
                                         * Referenced by: '<S5>/Gain2'
                                         */
   5.0,                                 /* Expression: 5
@@ -158,7 +158,7 @@ Parameters_helikopterExercise3 helikopterExercise3_P = {
   -5.0,                                /* Expression: -5
                                         * Referenced by: '<S2>/Sat B'
                                         */
-  0.595,                               /* Expression: V_f_eq
+  0.625,                               /* Expression: V_f_eq
                                         * Referenced by: '<S5>/Gain1'
                                         */
   5.0,                                 /* Expression: 5

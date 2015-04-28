@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopterExercise2.mdl".
  *
- * Model version              : 1.62
+ * Model version              : 1.63
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Mar 19 10:59:06 2015
+ * C source code generated on : Tue Apr 28 12:16:02 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -178,6 +178,38 @@ void helikopterExercise2_output(int_T tid)
       }
     }
 
+    /* Gain: '<S2>/Kalibrer-Pitch' */
+    helikopterExercise2_B.KalibrerPitch =
+      helikopterExercise2_P.KalibrerPitch_Gain * rtb_HILReadEncoder_o2;
+
+    /* ToFile: '<Root>/To File1' */
+    if (rtmIsMajorTimeStep(helikopterExercise2_M)) {
+      if (!(++helikopterExercise2_DWork.ToFile1_IWORK.Decimation % 1) &&
+          (helikopterExercise2_DWork.ToFile1_IWORK.Count*2)+1 < 100000000 ) {
+        FILE *fp = (FILE *) helikopterExercise2_DWork.ToFile1_PWORK.FilePtr;
+        if (fp != (NULL)) {
+          real_T u[2];
+          helikopterExercise2_DWork.ToFile1_IWORK.Decimation = 0;
+          u[0] = helikopterExercise2_M->Timing.t[1];
+          u[1] = helikopterExercise2_B.KalibrerPitch;
+          if (fwrite(u, sizeof(real_T), 2, fp) != 2) {
+            rtmSetErrorStatus(helikopterExercise2_M,
+                              "Error writing to MAT-file pitch.mat");
+            return;
+          }
+
+          if (((++helikopterExercise2_DWork.ToFile1_IWORK.Count)*2)+1 >=
+              100000000) {
+            (void)fprintf(stdout,
+                          "*** The ToFile block will stop logging data before\n"
+                          "    the simulation has ended, because it has reached\n"
+                          "    the maximum number of elements (100000000)\n"
+                          "    allowed in MAT-file pitch.mat.\n");
+          }
+        }
+      }
+    }
+
     /* Gain: '<S2>/Kalibrer-Elev' */
     helikopterExercise2_B.KalibrerElev = helikopterExercise2_P.KalibrerElev_Gain
       * rtb_HILReadEncoder_o3;
@@ -187,10 +219,6 @@ void helikopterExercise2_output(int_T tid)
      */
     helikopterExercise2_B.Add = helikopterExercise2_B.KalibrerElev +
       helikopterExercise2_P.Constant_Value;
-
-    /* Gain: '<S2>/Kalibrer-Pitch' */
-    helikopterExercise2_B.KalibrerPitch =
-      helikopterExercise2_P.KalibrerPitch_Gain * rtb_HILReadEncoder_o2;
   }
 
   /* Integrator: '<S1>/Integrator'
@@ -573,10 +601,10 @@ void helikopterExercise2_initialize(boolean_T firstTime)
   helikopterExercise2_M->Timing.stepSize1 = 0.001;
 
   /* external mode info */
-  helikopterExercise2_M->Sizes.checksums[0] = (4056269897U);
-  helikopterExercise2_M->Sizes.checksums[1] = (1666624234U);
-  helikopterExercise2_M->Sizes.checksums[2] = (3538068995U);
-  helikopterExercise2_M->Sizes.checksums[3] = (754933340U);
+  helikopterExercise2_M->Sizes.checksums[0] = (1888663190U);
+  helikopterExercise2_M->Sizes.checksums[1] = (3805369506U);
+  helikopterExercise2_M->Sizes.checksums[2] = (3515205500U);
+  helikopterExercise2_M->Sizes.checksums[3] = (1706016471U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
@@ -604,9 +632,9 @@ void helikopterExercise2_initialize(boolean_T firstTime)
 
   {
     helikopterExercise2_B.VandringLavpass = 0.0;
+    helikopterExercise2_B.KalibrerPitch = 0.0;
     helikopterExercise2_B.KalibrerElev = 0.0;
     helikopterExercise2_B.Add = 0.0;
-    helikopterExercise2_B.KalibrerPitch = 0.0;
     helikopterExercise2_B.KalibrerVandring = 0.0;
     helikopterExercise2_B.K_ei = 0.0;
     helikopterExercise2_B.SatB = 0.0;
@@ -747,6 +775,39 @@ void helikopterExercise2_terminate(void)
       helikopterExercise2_DWork.ToFile_PWORK.FilePtr = (NULL);
     }
   }
+
+  /* Terminate for ToFile: '<Root>/To File1' */
+  {
+    FILE *fp = (FILE *) helikopterExercise2_DWork.ToFile1_PWORK.FilePtr;
+    if (fp != (NULL)) {
+      const char *fileName = "pitch.mat";
+      if (fclose(fp) == EOF) {
+        rtmSetErrorStatus(helikopterExercise2_M,
+                          "Error closing MAT-file pitch.mat");
+        return;
+      }
+
+      if ((fp = fopen(fileName, "r+b")) == (NULL)) {
+        rtmSetErrorStatus(helikopterExercise2_M,
+                          "Error reopening MAT-file pitch.mat");
+        return;
+      }
+
+      if (rt_WriteMat4FileHeader(fp, 2,
+           helikopterExercise2_DWork.ToFile1_IWORK.Count, "ans")) {
+        rtmSetErrorStatus(helikopterExercise2_M,
+                          "Error writing header for ans to MAT-file pitch.mat");
+      }
+
+      if (fclose(fp) == EOF) {
+        rtmSetErrorStatus(helikopterExercise2_M,
+                          "Error closing MAT-file pitch.mat");
+        return;
+      }
+
+      helikopterExercise2_DWork.ToFile1_PWORK.FilePtr = (NULL);
+    }
+  }
 }
 
 /*========================================================================*
@@ -793,7 +854,7 @@ void MdlInitializeSizes(void)
   helikopterExercise2_M->Sizes.numU = (0);/* Number of model inputs */
   helikopterExercise2_M->Sizes.sysDirFeedThru = (0);/* The model is not direct feedthrough */
   helikopterExercise2_M->Sizes.numSampTimes = (2);/* Number of sample times */
-  helikopterExercise2_M->Sizes.numBlocks = (44);/* Number of blocks */
+  helikopterExercise2_M->Sizes.numBlocks = (45);/* Number of blocks */
   helikopterExercise2_M->Sizes.numBlockIO = (8);/* Number of block outputs */
   helikopterExercise2_M->Sizes.numBlockPrms = (149);/* Sum of parameter "widths" */
 }
@@ -974,6 +1035,27 @@ void MdlStart(void)
     helikopterExercise2_DWork.ToFile_IWORK.Count = 0;
     helikopterExercise2_DWork.ToFile_IWORK.Decimation = -1;
     helikopterExercise2_DWork.ToFile_PWORK.FilePtr = fp;
+  }
+
+  /* Start for ToFile: '<Root>/To File1' */
+  {
+    const char *fileName = "pitch.mat";
+    FILE *fp = (NULL);
+    if ((fp = fopen(fileName, "wb")) == (NULL)) {
+      rtmSetErrorStatus(helikopterExercise2_M,
+                        "Error creating .mat file pitch.mat");
+      return;
+    }
+
+    if (rt_WriteMat4FileHeader(fp,2,0,"ans")) {
+      rtmSetErrorStatus(helikopterExercise2_M,
+                        "Error writing mat file header to file pitch.mat");
+      return;
+    }
+
+    helikopterExercise2_DWork.ToFile1_IWORK.Count = 0;
+    helikopterExercise2_DWork.ToFile1_IWORK.Decimation = -1;
+    helikopterExercise2_DWork.ToFile1_PWORK.FilePtr = fp;
   }
 
   /* Start for FromWorkspace: '<Root>/From Workspace' */

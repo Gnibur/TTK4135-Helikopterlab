@@ -1,16 +1,8 @@
 %% Exercise 3: LQ controller
 
-hints_problem2;
-
+Exercise2;
 
 Q = diag([1 0 0 0]);
-R = 0.1;
-
-
+R = .5;
 
 [K,S,e] = dlqr(A,B,Q,R);
-
-
-
-
-

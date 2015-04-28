@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.63"
+    ComputedModelVersion    "1.64"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -25,11 +25,11 @@ Model {
   Creator		  "Administrator"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "rubinig"
+  LastModifiedBy	  "royka"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Mar 13 14:05:04 2015"
-  RTWModifiedTimeStamp	  348155225
-  ModelVersionFormat	  "1.%<AutoIncrement:63>"
+  LastModifiedDate	  "Tue Apr 28 12:54:42 2015"
+  RTWModifiedTimeStamp	  352126450
+  ModelVersionFormat	  "1.%<AutoIncrement:64>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -956,7 +956,7 @@ Model {
   }
   System {
     Name		    "helikopterExercise4a"
-    Location		    [970, 82, 1910, 994]
+    Location		    [10, 82, 950, 994]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -970,7 +970,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    81
+    SIDHighWatermark	    84
     Block {
       BlockType		      Sum
       Name		      "Add"
@@ -1962,6 +1962,20 @@ Model {
       Filename		      "travel.mat"
     }
     Block {
+      BlockType		      ToFile
+      Name		      "To File1"
+      SID		      83
+      Position		      [940, 270, 1000, 300]
+      Filename		      "pitch.mat"
+    }
+    Block {
+      BlockType		      ToFile
+      Name		      "To File2"
+      SID		      84
+      Position		      [940, 445, 1000, 475]
+      Filename		      "elevation.mat"
+    }
+    Block {
       BlockType		      ToWorkspace
       Name		      "To Workspace"
       SID		      76
@@ -2317,8 +2331,15 @@ Model {
 	}
 	Branch {
 	  Points		  [0, 35]
-	  DstBlock		  "To Workspace"
-	  DstPort		  1
+	  Branch {
+	    DstBlock		    "To Workspace"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 70]
+	    DstBlock		    "To File2"
+	    DstPort		    1
+	  }
 	}
       }
     }
@@ -2333,6 +2354,11 @@ Model {
       Branch {
 	Points			[0, 5]
 	DstBlock		"pitch_output"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 70]
+	DstBlock		"To File1"
 	DstPort			1
       }
     }
@@ -2363,21 +2389,21 @@ MatData {
     Data		    "  %)30     .    & $   8    (     @         %    \"     $    !     0         %  0 #0    $    G    ;VQD7V"
     "YA;64      &ES7V1E;&5T960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4    !         !  "
     "   %    2$E,+3$    .    ,     8    (    \"0(        %    \"     $    !     0         \"  $       X    X    !@    @"
-    "    &          4    (     0    $    !          D    (          'NH$ "
+    "    &          4    (     0    $    !          D    (        4 #DK4 "
   }
   DataRecord {
     Tag			    DataTag1
     Data		    "  %)30     .    & $   8    (     @         %    \"     $    !     0         %  0 #0    $    G    ;VQD7V"
     "YA;64      &ES7V1E;&5T960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4    !         !  "
     "   %    2$E,+3$    .    ,     8    (    \"0(        %    \"     $    !     0         \"  $       X    X    !@    @"
-    "    &          4    (     0    $    !          D    (          'NH$ "
+    "    &          4    (     0    $    !          D    (        4 #DK4 "
   }
   DataRecord {
     Tag			    DataTag0
     Data		    "  %)30     .    6%<   8    (     @         %    \"     $    !     0         %  0 $0    $   !F    :7-?=6"
     "YI<75E          !O;&1?8FQO8VL          &]L9%]N86UE            :7-?;6]D96Q?8VQO<VEN9P!S971T:6YG<P           &ES7V1E"
     ";&5T960            .    ,     8    (    \"0(        %    \"     $    !     0         \"  $  0    X    X    !@    @"
-    "    &          4    (     0    $    !          D    (          'NH$ .    .     8    (    !          %    \"     $ "
+    "    &          4    (     0    $    !          D    (        4 #DK4 .    .     8    (    !          %    \"     $ "
     "   %     0         0    !0   $A)3\"TQ    #@   #     &    \"     D\"        !0    @    !     0    $          @ !   "
     "    .    B%4   8    (     @         %    \"     $    !     0         %  0 $P    $   !,    ;VQD7V)O87)D7W1Y<&4     "
     " '$X                      !Q-                       <V5N<V]R87E?;6]D96Q?-C(V       .    2     8    (    !         "

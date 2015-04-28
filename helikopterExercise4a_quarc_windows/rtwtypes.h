@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopterExercise4a.mdl".
  *
- * Model version              : 1.63
+ * Model version              : 1.64
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Mar 19 12:44:04 2015
+ * C source code generated on : Tue Apr 28 12:54:45 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping

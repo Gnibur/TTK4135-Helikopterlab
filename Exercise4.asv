@@ -27,7 +27,7 @@ A = [ 1 h  0           0              0            0;
       0 0  0           0              1            h;
       0 0  0           0              -h*K_3*K_ep -h*K_3*K_ed+1];
   
-  B1 = [0; 0; 0; h*K_1*K_pp];
+B1 = [0; 0; 0; h*K_1*K_pp];
   
 B = [0           0; 
      0           0; 
@@ -54,7 +54,7 @@ x0   = [x1_0 x2_0 x3_0 x4_0 x5_0 x6_0]';          % Initial values
 
 % Time horizon and initialization
 
-N  = 15;                                % Time horizon for states
+N  = 40;                                % Time horizon for states (40)
 M  = N;                                 % Time horizon for inputs
 z  = zeros(N*mx+M*mu,1);                % Initialize z for the whole horizon
 z0 = z;                                 % Initial value for optimization
@@ -76,15 +76,15 @@ xu(3)   = p_ub;                         % Upper bound on state x3
 
 % Generate constraints on measurements and inputs
 
-vlb       = [repmat(xl,N,1);repmat(p_lb,M,1)]; 
-vub       = [repmat(xu,N,1); repmat(p_ub,M,1)];
+vlb       = [repmat(xl,N,1);repmat([p_lb; -Inf],M,1)];
+vub       = [repmat(xu,N,1); repmat([p_ub; Inf],M,1)];
 vlb(N*mx+M*mu)  = 0;                    % We want the last input to be zero
 vub(N*mx+M*mu)  = 0;                    % We want the last input to be zero
 
 % Generate the matrix Q and the vector c (objecitve function weights in the QP problem) 
 
 Q1 = zeros(mx,mx);
-Q1(1,1) = 1;                             % Weight on state x1
+Q1(1,1) = 1;                             % Weight on state x1 (1)
 Q1(2,2) = 0;                             % Weight on state x2
 Q1(3,3) = 0;                             % Weight on state x3
 Q1(4,4) = 0;                             % Weight on state x4
@@ -97,7 +97,7 @@ P1(1,1) = 1;                             % Weight on input pc
 P1(2,2) = 1;                             % Weight on input ec
 
 Q = blkdiag(kron(eye(N), Q1), kron(eye(N), P1));
-c = zeros(N*mx+M*mu,1);                  % Generate c
+c =   zeros(N*mx+M*mu,1);                  % Generate c
 
 % Generate system matrices for linear model
 
@@ -105,6 +105,7 @@ Aeq = [kron(diag(ones(N-1,1), -1), -A) + eye(N * mx), kron(eye(N),-B)];
 beq = [A*x0; zeros((N-1)*mx,1)]; 	     
 
 objfun = @(x) x'*Q*x+c'*x;
+%options = optimset('Algorithm', 'sqp');
 
 % Solve Qp problem with non-linear model
 tic
@@ -158,7 +159,7 @@ stairs(t,u_pc),grid
 ylabel('u_pc')
 subplot(412)
 stairs(t,u_ec),grid
-ylabel('u_pc')
+ylabel('u_ec')
 
 subplot(413)
 plot(t,x1,'m',t,x1,'mo'),grid
